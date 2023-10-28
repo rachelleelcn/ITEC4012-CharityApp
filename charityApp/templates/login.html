@@ -10,6 +10,12 @@
      <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
+
+         {% comment %} Redirect user to page if 'next' parameter exists {% endcomment %}
+         {% if request.GET.next %}
+             <input type="hidden" name="next" value="{{ request.GET.next }}">
+         {% endif %}
+
         <input type="submit" value="Login">
     </form>
     <p>Don't have an account? <a href="/signup">Sign up</a></p>

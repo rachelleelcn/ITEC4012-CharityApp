@@ -36,7 +36,12 @@ def login_view(request):
             # login user
             user = form.get_user()
             login(request, user)
-            return redirect('/explore')
+
+            # If 'next' exists, redirect users back to page (before prompted for login)
+            if 'next' in request.POST:
+                return redirect(request.POST.get('next'))
+            else:
+                return redirect('/explore')
     # GET request - when user accesses page
     else:
         form = AuthenticationForm()
@@ -55,3 +60,7 @@ def logout_view(request):
 @login_required(login_url="/login")
 def explore(request):
     return render(request, 'explore.html')
+
+@login_required(login_url="/login")
+def account(request):
+    return render(request, 'account.html')
