@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyCharityHub</title>
+</head>
+<body>
+    <nav>
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+        </form>
+    </nav>
+    <h1>Explore</h1>
+
+</body>
+</html>
