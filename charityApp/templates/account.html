@@ -13,7 +13,27 @@
             <input type="submit" value="Logout">
         </form>
     </nav>
+
     <h2>Account</h2>
+
+    <h4>Username</h4>
+    <p>{{ user.username }}</p>
+
+    <h3>Joined communities</h3>
+    {% for community in userCommunities %}
+        <p>{{ community.communityID }}</p>
+        <a href="/explore/{{ community.communityID|lower|cut:" " }}"><input type="button" value="View"></a>
+        <br>
+    {% endfor %}
+
+    <h3>Donation history</h3>
+    {% for history in userHistories %}
+        <p>{{ history.date }}</p>
+        <p>{{ history.communityName }}</p>
+        <p>{{ history.charityName }}</p>
+        <p>${{ history.amount }}</p>
+        <br>
+    {% endfor %}
 
 </body>
 </html>

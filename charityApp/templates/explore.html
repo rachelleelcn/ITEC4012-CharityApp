@@ -18,7 +18,7 @@
 
     <h3>Featured communities</h3>
 
-    {# Create communities #}
+    {# Create featured communities #}
     {% for community in communities %}
         {% if community.featured %}
             <div>
@@ -50,6 +50,7 @@
 
     <h3>Our communities</h3>
 
+    {# Create non-featured communities #}
     {% for community in communities %}
         {% if community.featured == False %}
             <div>

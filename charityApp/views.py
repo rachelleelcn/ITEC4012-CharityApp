@@ -12,6 +12,7 @@ from .models import User_Community
 from .models import Community_History
 from .models import Community_Charity
 from .models import Community_Comment
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -76,13 +77,17 @@ def explore(request):
     #cotm = Community.objects.get(id=1)
     #print(cotm.community_charity_set.all())
 
-    # userCommunityCount = User_Community.objects.values('username').annotate(count=Count('username'))
-    # print(userCommunityCount)
+
     return render(request, 'explore.html', {'communities': communities, 'communityUserCount': communityUserCount, 'charities': charities})
 
 @login_required(login_url="/login")
 def account(request):
-    return render(request, 'account.html')
+    user = request.user
+    # userCommunityCount = User_Community.objects.values('username').annotate(count=Count('username'))
+    # print(userCommunityCount)
+    userCommunities = User_Community.objects.filter(username=user)
+    userHistories = User_History.objects.filter(username=user)
+    return render(request, 'account.html', {'user': user, 'userCommunities': userCommunities, 'userHistories': userHistories})
 
 @login_required(login_url="/login")
 def animals(request):
