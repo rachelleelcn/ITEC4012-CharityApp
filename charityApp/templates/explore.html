@@ -13,7 +13,71 @@
             <input type="submit" value="Logout">
         </form>
     </nav>
-    <h1>Explore</h1>
+
+    <h2>Explore</h2>
+
+    <h3>Featured communities</h3>
+
+    {# Create communities #}
+    {% for community in communities %}
+        {% if community.featured %}
+            <div>
+                <h4>{{ community.name }}</h4>
+
+                {# Get member count for respective community #}
+                {% for item in communityUserCount %}
+                    {% if item.communityID == community.id %}
+                        <p>{{ item.count }} Members</p>
+                    {% endif %}
+                {% endfor %}
+
+                <p>Charity of the Month</p>
+                <p><strong>{{ community.cotm_id }}</strong></p>
+
+                {% for item in charities %}
+                    {% if item.name|stringformat:'s' == community.cotm_id|stringformat:'s' %}
+                        <p>{{ item.description }}</p>
+                        <img src="../static/{{ item.image }}" width="120"/>
+                    {% endif %}
+                {% endfor %}
+
+                <br>
+                <a href="/explore/{{ community.name|lower|cut:" " }}"><input type="button" value="View"></a>
+            </div>
+            <br>
+        {% endif %}
+    {% endfor %}
+
+    <h3>Our communities</h3>
+
+    {% for community in communities %}
+        {% if community.featured == False %}
+            <div>
+                <h4>{{ community.name }}</h4>
+
+                {# Get member count for respective community #}
+                {% for item in communityUserCount %}
+                    {% if item.communityID == community.id %}
+                        <p>{{ item.count }} Members</p>
+                    {% endif %}
+                {% endfor %}
+
+                <p>Charity of the Month</p>
+                <p><strong>{{ community.cotm_id }}</strong></p>
+
+                {% for item in charities %}
+                    {% if item.name|stringformat:'s' == community.cotm_id|stringformat:'s' %}
+                        <p>{{ item.description }}</p>
+                        <img src="../static/{{ item.image }}" width="120"/>
+                    {% endif %}
+                {% endfor %}
+
+                <br>
+                <a href="/explore/{{ community.name|lower|cut:" " }}"><input type="button" value="View"></a>
+            </div>
+            <br>
+        {% endif %}
+    {% endfor %}
 
 </body>
 </html>

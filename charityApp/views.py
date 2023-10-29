@@ -1,8 +1,17 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from django.db.models import Count
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import admin
+from .models import Charity
+from .models import Community
+from .models import User_History
+from .models import User_Community
+from .models import Community_History
+from .models import Community_Charity
+from .models import Community_Comment
 
 
 # Create your views here.
@@ -59,8 +68,50 @@ def logout_view(request):
 
 @login_required(login_url="/login")
 def explore(request):
-    return render(request, 'explore.html')
+    communities = Community.objects.all()
+    communityUserCount = User_Community.objects.values('communityID').annotate(count=Count('communityID'))
+    charities = Charity.objects.all()
+
+
+    #cotm = Community.objects.get(id=1)
+    #print(cotm.community_charity_set.all())
+
+    # userCommunityCount = User_Community.objects.values('username').annotate(count=Count('username'))
+    # print(userCommunityCount)
+    return render(request, 'explore.html', {'communities': communities, 'communityUserCount': communityUserCount, 'charities': charities})
 
 @login_required(login_url="/login")
 def account(request):
     return render(request, 'account.html')
+
+@login_required(login_url="/login")
+def animals(request):
+    return render(request, 'communities/animals.html')
+
+@login_required(login_url="/login")
+def arts_culture(request):
+    return render(request, 'communities/arts&culture.html')
+
+@login_required(login_url="/login")
+def education(request):
+    return render(request, 'communities/education.html')
+
+@login_required(login_url="/login")
+def environment(request):
+    return render(request, 'communities/environment.html')
+
+@login_required(login_url="/login")
+def health(request):
+    return render(request, 'communities/health.html')
+
+@login_required(login_url="/login")
+def indigenouspeoples(request):
+    return render(request, 'communities/indigenouspeoples.html')
+
+@login_required(login_url="/login")
+def publicbenefit(request):
+    return render(request, 'communities/publicbenefit.html')
+
+@login_required(login_url="/login")
+def socialservices(request):
+    return render(request, 'communities/socialservices.html')

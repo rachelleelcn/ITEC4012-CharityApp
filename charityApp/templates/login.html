@@ -11,7 +11,7 @@
         {% csrf_token %}
         {{ form.as_p }}
 
-         {% comment %} Redirect user to page if 'next' parameter exists {% endcomment %}
+         {# Redirect user to page if 'next' parameter exists %} Redirect user to page if 'next' parameter exists #}
          {% if request.GET.next %}
              <input type="hidden" name="next" value="{{ request.GET.next }}">
          {% endif %}
