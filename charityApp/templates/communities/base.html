@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyCharityHub</title>
+</head>
+<body>
+    <nav>
+        <p><a href="/explore">Explore</a></p>
+        <p><a href="/account">Account</a></p>
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+        </form>
+    </nav>
+
+    <h2>{{ community.name }}</h2>
+    <p>{{ userCount }} Members</p>
+    <form method="post">
+        <input type="submit" value="Join">
+    </form>
+    <br>
+    {#    join button !!!!    #}
+
+    <p>Last month's result ({{ lastHistory.date|date:"M" }})</p>
+    <p><strong>{{ lastHistory.charityName }}</strong></p>
+    <p>Donated ${{ lastHistory.amount }} in total</p>
+    <br>
+
+    <p>Charity of the Month</p>
+    <h2>{{ community.cotm_id }}</h2>
+    {% for item in charities %}
+        {% if item.charityID.name|stringformat:'s' == community.cotm_id|stringformat:'s' %}
+            <p>{{ item.charityID.location }}</p>
+            <p>{{ item.charityID.description }}</p>
+            <a href="{{ item.charityID.website }}">Visit website</a><br>
+            <img src="../../static/{{ item.charityID.image }}" width="120"/>
+        {% endif %}
+    {% endfor %}
+    <p>Progress: $ {{ community.progress }} collected</p>
+    <div>
+        <form method="post">
+            <label for="damount">Donate Amount</label><br>
+            <input type="number" name="damount" placeholder="Enter your amount" min="0" max="100000" step="0.01"><br>
+            <input type="submit" value="Donate">
+        </form>
+        {#    donate API !!!!    #}
+    </div>
+
+
+    <br><h3>Words of Support</h3>
+
+    {% for comment in comments %}
+        <p><strong>{{ comment.username }}</strong></p>
+        <p>{{ comment.date }}</p>
+        <p>{{ comment.comment }}</p>
+    {% endfor %}
+
+    <form method="post">
+        <textarea name="comment" placeholder="Show your support" rows="4" cols="50"></textarea><br>
+        <input type="submit" value="Share">
+    </form>
+    {#    ajax comment !!!!    #}
+
+
+    <br><h3>Our Charities</h3>
+    {% for item in charities %}
+        <div>
+            {% if item.charityID.name|stringformat:'s' != community.cotm_id|stringformat:'s' %}
+                <p><strong>{{ item.charityID.name }}</strong></p>
+                <p>{{ item.charityID.location }}</p>
+                <p>{{ item.charityID.description }}</p>
+                <img src="../../static/{{ item.charityID.image }}" width="120"/><br>
+                <a href="{{ item.charityID.website }}">Visit website</a>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+
+</body>
+</html>

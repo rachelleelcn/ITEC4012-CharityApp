@@ -73,50 +73,100 @@ def explore(request):
     communityUserCount = User_Community.objects.values('communityID').annotate(count=Count('communityID'))
     charities = Charity.objects.all()
 
-
-    #cotm = Community.objects.get(id=1)
-    #print(cotm.community_charity_set.all())
-
-
     return render(request, 'explore.html', {'communities': communities, 'communityUserCount': communityUserCount, 'charities': charities})
 
 @login_required(login_url="/login")
 def account(request):
     user = request.user
-    # userCommunityCount = User_Community.objects.values('username').annotate(count=Count('username'))
-    # print(userCommunityCount)
     userCommunities = User_Community.objects.filter(username=user)
     userHistories = User_History.objects.filter(username=user)
     return render(request, 'account.html', {'user': user, 'userCommunities': userCommunities, 'userHistories': userHistories})
 
 @login_required(login_url="/login")
 def animals(request):
-    return render(request, 'communities/animals.html')
+    community = Community.objects.get(id=1)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/animals.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def arts_culture(request):
-    return render(request, 'communities/arts&culture.html')
+    community = Community.objects.get(id=2)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/arts&culture.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
+
 
 @login_required(login_url="/login")
 def education(request):
-    return render(request, 'communities/education.html')
+    community = Community.objects.get(id=3)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/education.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def environment(request):
-    return render(request, 'communities/environment.html')
+    community = Community.objects.get(id=4)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/environment.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def health(request):
-    return render(request, 'communities/health.html')
+    community = Community.objects.get(id=5)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/health.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def indigenouspeoples(request):
-    return render(request, 'communities/indigenouspeoples.html')
+    community = Community.objects.get(id=6)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/indigenouspeoples.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def publicbenefit(request):
-    return render(request, 'communities/publicbenefit.html')
+    community = Community.objects.get(id=7)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/publicbenefit.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
 
 @login_required(login_url="/login")
 def socialservices(request):
-    return render(request, 'communities/socialservices.html')
+    community = Community.objects.get(id=8)
+    userCount = community.user_community_set.all().count()
+    lastHistory = community.community_history_set.all().last()
+    charities = community.community_charity_set.all()
+    comments = community.community_comment_set.all()
+    return render(request, 'communities/socialservices.html',
+                  {'community': community, 'userCount': userCount, 'lastHistory': lastHistory, 'charities': charities,
+                   'comments': comments})
