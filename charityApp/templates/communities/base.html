@@ -5,6 +5,7 @@
     <title>MyCharityHub</title>
 </head>
 <body>
+
     <nav>
         <p><a href="/explore">Explore</a></p>
         <p><a href="/account">Account</a></p>
@@ -16,11 +17,19 @@
 
     <h2>{{ community.name }}</h2>
     <p>{{ userCount }} Members</p>
-    <form method="post">
-        <input type="submit" value="Join">
+
+    {#    join button !!!!    #}
+    <form action="{% url 'joincommunity' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="prevPath" value="{{ request.path }}">
+        <input type="hidden" name="prevCommunity" value="{{ community }}">
+        {% if join %}
+            <input type="submit" name="status" value="Leave">
+        {% else %}
+            <input type="submit" name="status" value="Join">
+        {% endif %}
     </form>
     <br>
-    {#    join button !!!!    #}
 
     <p>Last month's result ({{ lastHistory.date|date:"M" }})</p>
     <p><strong>{{ lastHistory.charityName }}</strong></p>
@@ -49,18 +58,23 @@
 
 
     <br><h3>Words of Support</h3>
-
-    {% for comment in comments %}
+    <div id="comments">
+        {% for comment in comments %}
         <p><strong>{{ comment.username }}</strong></p>
         <p>{{ comment.date }}</p>
         <p>{{ comment.comment }}</p>
     {% endfor %}
+    </div>
 
-    <form method="post">
-        <textarea name="comment" placeholder="Show your support" rows="4" cols="50"></textarea><br>
+    <form id="commentForm" method="post" action="{% url 'communitycomment' %}">
+        {% csrf_token %}
+        {{ commentform.as_p }}
+        {# <textarea name="comment" placeholder="Show your support" rows="4" cols="50"></textarea> #}
+        <br>
+        <input type="hidden" name="prevPath" value="{{ request.path }}">
+        <input type="hidden" name="prevCommunity" value="{{ community }}">
         <input type="submit" value="Share">
     </form>
-    {#    ajax comment !!!!    #}
 
 
     <br><h3>Our Charities</h3>

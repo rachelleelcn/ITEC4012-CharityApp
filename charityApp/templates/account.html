@@ -20,20 +20,29 @@
     <p>{{ user.username }}</p>
 
     <h3>Joined communities</h3>
-    {% for community in userCommunities %}
-        <p>{{ community.communityID }}</p>
-        <a href="/explore/{{ community.communityID|lower|cut:" " }}"><input type="button" value="View"></a>
-        <br>
-    {% endfor %}
+    {% if userCommunities %}
+        {% for community in userCommunities %}
+            <p>{{ community.communityID }}</p>
+            <a href="/explore/{{ community.communityID|lower|cut:" " }}"><input type="button" value="View"></a>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>You have not joined any communities yet.</p>
+        <a href="/explore"><input type="button" value="Explore communities"></a>
+    {% endif %}
 
     <h3>Donation history</h3>
-    {% for history in userHistories %}
-        <p>{{ history.date }}</p>
-        <p>{{ history.communityName }}</p>
-        <p>{{ history.charityName }}</p>
-        <p>${{ history.amount }}</p>
-        <br>
-    {% endfor %}
+    {% if userHistories %}
+        {% for history in userHistories %}
+            <p>{{ history.date }}</p>
+            <p>{{ history.communityName }}</p>
+            <p>{{ history.charityName }}</p>
+            <p>${{ history.amount }}</p>
+            <br>
+        {% endfor %}
+    {% else %}
+        <p>You have no donation history yet.</p>
+    {% endif %}
 
 </body>
 </html>
