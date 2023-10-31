@@ -5,6 +5,7 @@
     <title>MyCharityHub</title>
 </head>
 <body>
+    {# navigation #}
     <nav>
         <p><a href="/explore">Explore</a></p>
         <p><a href="/account">Account</a></p>
@@ -16,9 +17,11 @@
 
     <h2>Account</h2>
 
+    {# user #}
     <h4>Username</h4>
     <p>{{ user.username }}</p>
 
+    {# user joined communities #}
     <h3>Joined communities</h3>
     {% if userCommunities %}
         {% for community in userCommunities %}
@@ -31,6 +34,7 @@
         <a href="/explore"><input type="button" value="Explore communities"></a>
     {% endif %}
 
+    {# user donation history #}
     <h3>Donation history</h3>
     {% if userHistories %}
         {% for history in userHistories %}

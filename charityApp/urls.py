@@ -17,5 +17,6 @@ urlpatterns = [
     path('explore/publicbenefit/', views.publicbenefit, name='publicbenefit'),
     path('explore/socialservices/', views.socialservices, name='socialservices'),
     path('comment/', views.communitycomment, name='communitycomment'),
-    path('join/', views.joincommunity, name='joincommunity')
+    path('join/', views.joincommunity, name='joincommunity'),
+    path('donate/', views.donate, name='donate')
 ]

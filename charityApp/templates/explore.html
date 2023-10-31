@@ -5,6 +5,7 @@
     <title>MyCharityHub</title>
 </head>
 <body>
+    {# navigation #}
     <nav>
         <p><a href="/explore">Explore</a></p>
         <p><a href="/account">Account</a></p>
@@ -16,24 +17,23 @@
 
     <h2>Explore</h2>
 
+    {# featured communities #}
     <h3>Featured Communities</h3>
-
-    {# Create featured communities #}
     {% for community in communities %}
         {% if community.featured %}
             <div>
                 <h4>{{ community.name }}</h4>
 
-                {# Get member count for respective community #}
+                {# member count for respective community #}
                 {% for item in communityUserCount %}
                     {% if item.communityID == community.id %}
                         <p>{{ item.count }} Members</p>
                     {% endif %}
                 {% endfor %}
 
+                {# charity of the month for respective community #}
                 <p>Charity of the Month</p>
                 <p><strong>{{ community.cotm_id }}</strong></p>
-
                 {% for item in charities %}
                     {% if item.name|stringformat:'s' == community.cotm_id|stringformat:'s' %}
                         <p>{{ item.description }}</p>
@@ -42,30 +42,30 @@
                 {% endfor %}
 
                 <br>
+                {# view respective community #}
                 <a href="/explore/{{ community.name|lower|cut:" " }}"><input type="button" value="View"></a>
             </div>
             <br>
         {% endif %}
     {% endfor %}
 
+    {# non-featured communities #}
     <h3>Our Communities</h3>
-
-    {# Create non-featured communities #}
     {% for community in communities %}
         {% if community.featured == False %}
             <div>
                 <h4>{{ community.name }}</h4>
 
-                {# Get member count for respective community #}
+                {# member count for respective community #}
                 {% for item in communityUserCount %}
                     {% if item.communityID == community.id %}
                         <p>{{ item.count }} Members</p>
                     {% endif %}
                 {% endfor %}
 
+                {# charity of the month for respective community #}
                 <p>Charity of the Month</p>
                 <p><strong>{{ community.cotm_id }}</strong></p>
-
                 {% for item in charities %}
                     {% if item.name|stringformat:'s' == community.cotm_id|stringformat:'s' %}
                         <p>{{ item.description }}</p>
@@ -74,6 +74,7 @@
                 {% endfor %}
 
                 <br>
+                {# view respective community #}
                 <a href="/explore/{{ community.name|lower|cut:" " }}"><input type="button" value="View"></a>
             </div>
             <br>

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import stripe
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -125,3 +126,5 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+stripe.api_key = 'sk_test_51O6xJbGsQWfJ2K7eVthzygPUwmdn7CorIpcmLB6wdop4QJwlzeK8tKmBGfvTAZWrUFgI6EoW8U00cGY3k2xZgWC100SX9IDJDc'
